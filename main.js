@@ -81,6 +81,13 @@ const notify = async (notice) => {
             }
           }),
         })
+      } else if (option.startsWith('serverchan:')) {
+        const sendKey = option.split(':')[1];
+        await fetch(`https://sctapi.ftqq.com/${sendKey}.send`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          body: `title=${encodeURIComponent(notice[0])}&desp=${encodeURIComponent(notice.join('\n'))}`
+        });
       } else {
         // fallback
         await fetch(`https://www.pushplus.plus/send`, {
